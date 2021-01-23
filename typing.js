@@ -52,12 +52,32 @@ let keyDown = e => {
 
 let rankCheck = rank => {}; // ランク判定とメッセージ生成処理
 
-let gameOver = id => {}; // ゲームの終了処理
+let gameOver = id => {
+    // タイマーをストップする
+    clearInterval(id);
+    console.log('ゲーム終了！')
+}; // ゲームの終了処理
 
-let timer = () => {}; // タイマー処理
+let timer = () => {
+    // タイマーの初期値を設定(60秒)
+    let time = 60;
+    // タイマー要素を取得する
+    let count = document.getElementById('count');
+    let id = setInterval(() => {
+        // カウントが0になったらタイマーを停止する
+        if(time <= 0) gameOver(id);
+        // タイマーの表示を1ずつ減らしていく
+        count.textContent = time--;
+        // 1秒ごとに実行する処理を書く
+    }, 1000);
+}; // タイマー処理
 
 start.addEventListener('click', () => {
+    // タイマー関数を追記する
+    timer();
     createText();
+    // 「スタート」ボタンを非表示にする処理を追記
+    start.style.display = 'none';
     // キーボードのイベント処理
     document.addEventListener('keydown', keyDown);
 }) // ゲームスタート時の処理
