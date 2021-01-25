@@ -15,7 +15,9 @@ let textLists = [
     'console.log', 'for while if switch', 'var let const',
     'Windows Mac Linux iOS Android', 'programming']; // 複数のテキストを格納する配列
     // 新しい配列を用意する
-    let checkTexts = [];
+let checkTexts = [];
+    // スコアの初期値を設定する
+let time = 60, score = 0;
 
 let createText = () => {let p = document.getElementById('text');
 // 配列の0番目にあるテキストを画面に表示する
@@ -33,14 +35,11 @@ checkTexts = textLists[rnd].split('').map(value => {
 
     // 1文字ずつcheckTextsに格納していく
     return span;
-})
+});
 }; // ランダムなテキストを画面に表示する
-createText();
-
-// スコアの初期値を設定する
-let score = 0;
 
 let keyDown = e => {
+    wrap.style.backgroundColor = '#666';
     if(e.key === checkTexts[0].textContent) {
         // add-colorクラスを付与する
         checkTexts[0].className = 'add-color';
@@ -78,9 +77,10 @@ let rankCheck = score => {
 }; // ランク判定とメッセージ生成処理
 
 let gameOver = id => {
+    let rank = '';
     // タイマーをストップする
     clearInterval(id);
-    
+    time = 0;
     // スコアの値をrankCheck()に渡してダイアログで結果を表示する
     let result = confirm(rankCheck(score));
     // OKボタンをクリックされたらリロードする
@@ -110,3 +110,10 @@ start.addEventListener('click', () => {
     // キーボードのイベント処理
     document.addEventListener('keydown', keyDown);
 }) // ゲームスタート時の処理
+
+$("#score").text(rankCheck);
+$("#score").hide();
+
+$("#start").click(function() {
+    $("#score").show(60000);
+});
