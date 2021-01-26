@@ -1,3 +1,4 @@
+$("#score").hide();
 // 必要なHTML要素の取得
 let wrap = document.getElementById('wrap');
 let start = document.getElementById('start');
@@ -17,7 +18,7 @@ let textLists = [
     // 新しい配列を用意する
 let checkTexts = [];
     // スコアの初期値を設定する
-let time = 60, score = 0;
+let time = 3, score = 0;
 
 let createText = () => {let p = document.getElementById('text');
 // 配列の0番目にあるテキストを画面に表示する
@@ -60,9 +61,9 @@ let keyDown = e => {
 }; // キーイベント&入力判定処理
 
 let rankCheck = score => {
-    // テキストを格納する変数を作る
+        // テキストを格納する変数を作る
     let text = '';
-    // スコアに応じて異なるメッセージを変数textに格納する
+        // スコアに応じて異なるメッセージを変数textに格納する
     if(score < 100) {
         text = `あなたのランクはCです。\nBランクまであと${100 - score}文字です。`;
     } else if(score < 200) {
@@ -73,7 +74,7 @@ let rankCheck = score => {
         text = `あなたのランクはSです。\nおめでとうございます！`;
     }
     // 生成したメッセージと一緒に文字列を返す
-    return `${score}文字打てました！\n${text}\n【OK】リトライ／【キャンセル】終了`;
+    return `${score}文字打てました！\n${text}\n`;
 }; // ランク判定とメッセージ生成処理
 
 let gameOver = id => {
@@ -81,15 +82,19 @@ let gameOver = id => {
     // タイマーをストップする
     clearInterval(id);
     time = 0;
-    // スコアの値をrankCheck()に渡してダイアログで結果を表示する
-    let result = confirm(rankCheck(score));
-    // OKボタンをクリックされたらリロードする
-    if(result) window.location.reload();
+    // スコアの値をrankCheck()に渡してhtmlで結果を表示する
+    $("#score").text(rankCheck(score));
+    $("#game").hide();
+    $("#score").show();
+    $("#result").show(); 
+
 }; // ゲームの終了処理
+
+$("#result").hide();
 
 let timer = () => {
     // タイマーの初期値を設定(60秒)
-    let time = 60;
+    let time = 3;
     // タイマー要素を取得する
     let count = document.getElementById('count');
     let id = setInterval(() => {
@@ -110,10 +115,3 @@ start.addEventListener('click', () => {
     // キーボードのイベント処理
     document.addEventListener('keydown', keyDown);
 }) // ゲームスタート時の処理
-
-$("#score").text(rankCheck);
-$("#score").hide();
-
-$("#start").click(function() {
-    $("#score").show(60000);
-});
