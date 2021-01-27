@@ -1,4 +1,3 @@
-$("#score").hide();
 // 必要なHTML要素の取得
 let wrap = document.getElementById('wrap');
 let start = document.getElementById('start');
@@ -18,7 +17,7 @@ let textLists = [
     // 新しい配列を用意する
 let checkTexts = [];
     // スコアの初期値を設定する
-let time = 3, score = 0;
+let time = 60, score = 0;
 
 let createText = () => {let p = document.getElementById('text');
 // 配列の0番目にあるテキストを画面に表示する
@@ -84,6 +83,10 @@ let gameOver = id => {
     time = 0;
     // スコアの値をrankCheck()に渡してhtmlで結果を表示する
     $("#score").text(rankCheck(score));
+    $("#score").fadeIn(3000);
+    $("#restart").on("click", function() {
+        window.location.reload();
+    });
     $("#game").hide();
     $("#score").show();
     $("#result").show(); 
@@ -94,7 +97,7 @@ $("#result").hide();
 
 let timer = () => {
     // タイマーの初期値を設定(60秒)
-    let time = 3;
+    let time = 60;
     // タイマー要素を取得する
     let count = document.getElementById('count');
     let id = setInterval(() => {
