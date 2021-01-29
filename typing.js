@@ -91,12 +91,7 @@ let gameOver = id => {
     $("#score").hide().fadeIn(3000);
     $("#result").show();
 }; // ゲームの終了処理
-$("#score").css({"margin-top":"80px",
-    "padding":"20px 10px",
-    "font-weight":"bold",
-    "color":"white",
-    "background-color":"#00aaff",
-    "font-family":"[ヒラギノ丸ゴ pro W4,Hiragino Maru Gothic Pro, sans-serif]"});
+
 $("#result").hide();
 
 let timer = () => {
